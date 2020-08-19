@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Video} from '../Store/VideoInterface'
-import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player/lazy'
 import * as cx from 'classnames'
 
 interface Props {
@@ -20,20 +20,24 @@ export default class VideoItem extends React.PureComponent<Props, State>  {
   render () {
     let {video} = this.props
 
-    const opts = {
-      height: '157',
-      width: '280',
-      playerVars: {
-        autoplay: 0,
-        modestbranding: 1,
-        rel : 0
-      },
-    };
-
     return  <li className='video-item'>
               <div className="view">
                   <div className='video-link'>
-                    <YouTube videoId={video.url} opts={opts} onReady={this._onReady} />
+                    <ReactPlayer config={
+                      {
+                        youtube:
+                        {
+                          playerVars: {
+                            autoplay: 0,
+                            modestbranding: 1,
+                            rel : 0
+                          }
+                        }
+                      }
+                    }  
+                      url={video.url} 
+                      height='157px' 
+                      width='280px' />
                   </div>
                   <div className='video-infos'>
                     <h1 className='video-title'>{video.titre}</h1>

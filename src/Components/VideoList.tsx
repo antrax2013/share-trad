@@ -29,7 +29,7 @@ export default class videoList extends React.PureComponent<videoListProps,videoL
     this.store.loadVideo({
       id : '0',
       titre : 'Combien de temps vont ils tenir leurs mensonges ?',
-      url : 'PWQx2t7r404'
+      url : 'https://www.youtube.com/watch?v=PWQx2t7r404'
     })
   }
 
