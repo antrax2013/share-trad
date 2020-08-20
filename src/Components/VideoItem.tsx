@@ -20,21 +20,21 @@ export default class VideoItem extends React.PureComponent<Props, State>  {
   render () {
     let {video} = this.props
 
+    let ops = {
+      youtube :
+      {
+        playerVars: {
+          autoplay: 0,
+          modestbranding: 1,
+          rel : 0
+        }
+      }
+    }
+
     return  <li className='video-item'>
               <div className="view">
                   <div className='video-link'>
-                    <ReactPlayer config={
-                      {
-                        youtube:
-                        {
-                          playerVars: {
-                            autoplay: 0,
-                            modestbranding: 1,
-                            rel : 0
-                          }
-                        }
-                      }
-                    }  
+                    <ReactPlayer config={ops}  
                       url={video.url} 
                       height='157px' 
                       width='280px' />
