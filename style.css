@@ -1,8 +1,18 @@
+:root {
+	--font-color : #4d4d4d;
+	--bg-color : #f5f5f5;
+	--bg-color-dark : #eee;
+	--bg-color-darker : #aaa;
+	--ruban-gray : #283e4a;
+}
+
 html,
 body {
 	margin: 0;
 	padding: 0;
 }
+
+
 
 button {
 	margin: 0;
@@ -23,10 +33,10 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-	background: #f5f5f5;
-	color: #4d4d4d;
-	min-width: 230px;
-	max-width: 550px;
+	background: var(--bg-color);
+	color: var(--font-color);
+	/* min-width: 230px;
+	max-width: 550px; */
 	margin: 0 auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -42,7 +52,7 @@ body {
 }
 
 .todoapp {
-	background: #fff;
+	background: var(--bg-color);
 	margin: 130px 0 40px 0;
 	position: relative;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
@@ -80,6 +90,27 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+nav ul li {
+	display: inline;
+}
+
+nav ul li a {
+	color: inherit;
+	margin: 3px;
+	padding: 3px 7px;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+nav ul li a:hover {
+	border-color: rgba(175, 47, 47, 0.1);
+}
+
+nav ul li a.selected {
+	border-color: rgba(175, 47, 47, 0.2);
+}
+
 .new-todo,
 .edit {
 	position: relative;
@@ -110,6 +141,7 @@ body {
 	position: relative;
 	z-index: 2;
 	border-top: 1px solid #e6e6e6;
+	padding: 50px 20px 0px 20px;
 }
 
 .toggle-all {
@@ -253,12 +285,29 @@ body {
 	margin-bottom: -1px;
 }
 
-.footer {
+.footer, .header {
 	color: #777;
 	padding: 10px 15px;
 	height: 20px;
 	text-align: center;
 	border-top: 1px solid #e6e6e6;
+	background-color: var(--ruban-gray);
+}
+
+
+.header{
+	position: fixed;
+	z-index: 5;
+	top: -1px;
+	width: 100%;
+	padding-bottom: 20px;
+}
+
+.footer{
+	position: fixed;
+	z-index: 5;
+	bottom: 0px;
+	width: 100%
 }
 
 .footer:before {
@@ -348,6 +397,28 @@ html .clear-completed:active {
 
 .info a:hover {
 	text-decoration: underline;
+}
+
+.video-item{
+	display: inline-block;
+	padding:  10px;
+	background-color: var(--bg-color-dark);
+	width: max-content;
+}
+
+.video-link, .video-votes{
+ padding: 5px;
+ display: inline-block;
+ background-color: var(--bg-color-darker);
+ height: 100%;
+}
+.video-votes{
+	float: right;
+}
+.video-infos{
+	display: inline-block;
+	padding: 5px;
+	max-width: 85%;
 }
 
 /*

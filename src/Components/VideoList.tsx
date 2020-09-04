@@ -8,11 +8,13 @@ import  VideoItem from './VideoItem'
 interface videoListProps { }
 
 interface videoListState { 
-    videos : Video[]
+  videos : Video[]
 }
 
 export default class videoList extends React.PureComponent<videoListProps,videoListState>  {
   private store : VideoStore= new VideoStore()
+  private increment : (video : Video) => void
+
 
   constructor (props: videoListProps) {
     super(props);
@@ -22,14 +24,23 @@ export default class videoList extends React.PureComponent<videoListProps,videoL
     }       
     this.store.onChange((store : VideoStore) => {
         this.setState({videos : store.videos})
-    })    
+    })
+    
+    this.increment = this.store.increment.bind(this.store)
+
   }
 
   componentDidMount() {
     this.store.loadVideo({
       id : '0',
       titre : 'Combien de temps vont ils tenir leurs mensonges ?',
-      url : 'https://www.youtube.com/watch?v=PWQx2t7r404'
+      url : 'https://www.youtube.com/watch?v=PWQx2t7r404',
+      datePublication : new Date("1968-11-16T00:00:00"),
+      demandeur : "Antrax",
+      tags : ["Trump","Covid"],
+      transScripts : ["EN","FR"],
+      sousTitrages : ["EN","FR"],
+      nbVotes : 420
     })
   }
 
@@ -40,7 +51,7 @@ export default class videoList extends React.PureComponent<videoListProps,videoL
               <ul>
               {
                   videos.map(v => {
-                      return <VideoItem video={v} key={v.id} />
+                      return <VideoItem video={v} key={v.id} onIncrement={this.increment} />
                   })
               }
               </ul>

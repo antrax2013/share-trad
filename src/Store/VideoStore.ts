@@ -21,9 +21,20 @@ export default class VideoStore {
         {
             id : v.id, 
             titre : v.titre,
-            url : v.url
+            url : v.url,
+            datePublication : v.datePublication,
+            demandeur : v.demandeur,
+            tags : v.tags,
+            transScripts : v.transScripts,
+            sousTitrages : v.sousTitrages,
+            nbVotes : v.nbVotes
         } , ...this.videos // concat
     ]
     this.inform()
+  }
+
+  increment(video: Video) : void {
+    this.videos = this.videos.map(v=> v === video ? { ...v, nbVotes : video.nbVotes+1 }:v )
+            this.inform()
   }
 }

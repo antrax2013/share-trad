@@ -22,7 +22,7 @@ const Filters = {
     completed : (todo : Todo) => todo.completed,
     active : (todo : Todo) => !todo.completed,
     all : (todo : Todo) => true
-  }
+}
 
 export default class TodoList extends React.PureComponent<TodoListProps,TodoListState>  {
     private store : TodoStore= new TodoStore()
@@ -88,8 +88,9 @@ export default class TodoList extends React.PureComponent<TodoListProps,TodoList
       if(this.state.loading) {
           <h1>Chargement en cours</h1>
       }
-    return <section className="todoApp">
-                    <header className="header">
+    return (
+        <section className="todoApp">
+                    <header className="inner-header">
                         <h1>todos</h1>
                         <input 
                             className="new-todo"    
@@ -112,7 +113,7 @@ export default class TodoList extends React.PureComponent<TodoListProps,TodoList
                             
                         </ul>
                     </section>
-                    <footer className="footer">
+                    <footer className="inner-footer">
                         {remaining > 0 && 
                             <span className="todo-count">
                             <strong>{remaining}</strong> 
@@ -130,6 +131,7 @@ export default class TodoList extends React.PureComponent<TodoListProps,TodoList
                         {completedCount > 0 && <span className="clear-completed" onClick={this.clearCompleted}>Clear completed</span> }
                     </footer>
                 </section>
+                )
   }
 
   updateNewTodo = (e: React.FormEvent<HTMLInputElement>) => {

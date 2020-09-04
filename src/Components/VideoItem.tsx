@@ -1,20 +1,23 @@
 import * as React from 'react'
 import {Video} from '../Store/VideoInterface'
 import ReactPlayer from 'react-player/lazy'
+import { format } from "date-fns";
 import * as cx from 'classnames'
 
 interface Props {
   video : Video,
+  onIncrement : (video : Video) => void
 }
 
 interface State {
+  incremented : boolean
 }
 
-export default class VideoItem extends React.PureComponent<Props, State>  {
-  
+export default class VideoItem extends React.PureComponent<Props, State>  {  
 
   constructor(props: Props){
     super(props)
+    this.state = { incremented : false }
   }
   
   render () {
@@ -31,6 +34,7 @@ export default class VideoItem extends React.PureComponent<Props, State>  {
       }
     }
 
+  //#region render
     return  <li className='video-item'>
               <div className="view">
                   <div className='video-link'>
@@ -41,28 +45,48 @@ export default class VideoItem extends React.PureComponent<Props, State>  {
                   </div>
                   <div className='video-infos'>
                     <h1 className='video-title'>{video.titre}</h1>
-                    <p className='video-depose'>
-                      Proposée le 18/07/2020 par <a href='#' className='video-fournisseur-link'>Antrax</a>
+                    <div className='video-depose'>
+                      Proposée le {format(video.datePublication, "dd/MM/yyyy")} par <a href='#' className='video-fournisseur-link'>{video.demandeur}</a>
                       <ul className='video-list-tags'>
-                        <li className='video-tag'>Corbett Report</li>
-                        <li className='video-tag'>Masques</li>
+                        {
+                            video.tags.map(t => {
+                                return <li className={`video-tag t`} key={t}>{t}</li>
+                            })
+                        }
                       </ul>
-                    </p>
+                    </div>
                     <div className='video-list-trad-element'>
                       <ul className='video-list-trs'>
-                        <li className='video-tr'>EN</li>
-                        <li className='video-tr'>FR</li>
+                        {
+                            video.transScripts.map(t => {
+                                return <li className={`video-tr t`} key={t}>{t}</li>
+                            })
+                        }
                       </ul>
                     </div>
                     <div className='video-list-st-element'>
                       <ul className='video-list-sts'>
-                        <li className='video-st'>EN</li>
-                        <li className='video-st'>FR</li>
+                        {
+                            video.sousTitrages.map( t => {
+                                return <li className={`video-st t`} key={t}>{t}</li>
+                            })
+                        }
                       </ul>
                     </div>
                   </div>
+                  <div className='video-votes'>
+                    <span>{video.nbVotes} votes</span>
+                    <button className="plus1" key={video.id} disabled={this.state.incremented} onClick={this.like}>+1</button>
+                  </div>
               </div>
             </li>
+  }
+  //#endregion
+
+  like = (e : React.MouseEvent<HTMLButtonElement>) => {
+    let {video} = this.props
+    this.props.onIncrement(video)
+    this.setState({incremented : true})
   }
 
   _onReady(event : any) {
